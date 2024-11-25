@@ -1,0 +1,74 @@
+﻿
+@{
+ViewData["Title"] = "Home Page";
+}
+
+<!-- Container with background image and content aligned side by side -->
+<h2 class="display-5 fw-bold mb-4">Добро пожаловать! Вы на главной странице склада</h2>
+<p class="lead mb-4">
+    Добро пожаловать на сайт управления складом!
+</p>
+<div class="container-fluid vh-100 d-flex justify-content-between align-items-center">
+    <!-- Left-side Text Section -->
+    <div class="row justify-content-start text-start z-index-1 col-md-6 px-5">
+        <div class="col-md-12">
+            <p class="mb-5 lead">
+                Наш сайт предназначен для удобного и эффективного управления складскими операциями. Здесь вы сможете:
+            </p>
+
+            <ul class="list-group lead text-left mx-auto mb-5" style="max-width: 600px;">
+                <li><i class="bi bi-check-circle-fill me-2"></i>Отслеживать остатки товаров — всегда будьте в курсе актуального наличия на складе.</li>
+                <li><i class="bi bi-check-circle-fill me-2"></i>Управлять заказами — создавайте, редактируйте и отслеживайте статусы заказов.</li>
+                <li><i class="bi bi-check-circle-fill me-2"></i>Вести учет клиентов и поставщиков — храните все данные в одном месте.</li>
+                <li><i class="bi bi-check-circle-fill me-2"></i>Получать аналитические отчеты — анализируйте данные и оптимизируйте процессы.</li>
+            </ul>
+            <p class="lead mb-4">
+                Простой и интуитивно понятный интерфейс позволяет с легкостью работать с данными, а безопасность информации гарантируется современными технологиями защиты.
+            </p>
+            <p class="lead mb-4">
+                Начните работать эффективнее уже сегодня!
+            </p>
+            <a href="@Url.Action("Login", "Account")" class="btn btn-primary btn-lg shadow-lg">Начать</a>
+        </div>
+    </div>
+
+    <!-- Right-side Image Section -->
+    <div class="col-md-6 p-0">
+        <img src="./img/home.jpg" class="img-fluid w-100 h-100 object-fit-cover rounded-5" alt="Warehouse Image">
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+
+<style>
+    /* Remove text shadow and make layout adjustments */
+    .container-fluid {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .lead{
+        font-size: x-large;
+    }
+
+    /* Remove the background image styling and use the image as a background to the right side */
+    .col-md-6.p-0 img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+    }
+
+    /* Customize the button */
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+    
+</style>

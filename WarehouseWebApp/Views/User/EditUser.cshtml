@@ -1,0 +1,91 @@
+@model EditUserViewModel
+
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-primary">Редактирование пользователя</h2>
+    </div>
+
+    <!-- Display Success or Error Message -->
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <form asp-action="EditUser" method="post" class="shadow-lg p-4 rounded-4 bg-light">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <!-- User Id (Hidden Field) -->
+        <input type="hidden" asp-for="userId" />
+
+        <!-- Full Name Field -->
+        <div class="mb-3">
+            <label asp-for="fullName" class="form-label">Полное имя</label>
+            <input type="text" asp-for="fullName" class="form-control form-control-lg" placeholder="Введите полное имя" />
+            <span asp-validation-for="fullName" class="text-danger"></span>
+        </div>
+
+        <!-- Email Field -->
+        <div class="mb-3">
+            <label asp-for="email" class="form-label">Почта</label>
+            <input type="email" asp-for="email" class="form-control form-control-lg" placeholder="Введите почту" />
+            <span asp-validation-for="email" class="text-danger"></span>
+        </div>
+
+        <!-- Username (Login) Field -->
+        <div class="mb-3">
+            <label asp-for="userName" class="form-label">Логин</label>
+            <input type="text" asp-for="userName" class="form-control form-control-lg" placeholder="Введите логин" />
+            <span asp-validation-for="userName" class="text-danger"></span>
+        </div>
+
+        <!-- New Password Field -->
+        <div class="mb-3">
+            <label asp-for="newPassword" class="form-label">Новый пароль</label>
+            <input type="password" asp-for="newPassword" class="form-control form-control-lg" placeholder="Введите новый пароль" />
+            <span asp-validation-for="newPassword" class="text-danger"></span>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg">Сохранить изменения</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<style>
+    /* Additional Styles for Aesthetic Improvement */
+    .shadow-lg {
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .rounded-4 {
+        border-radius: 15px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+    .form-control-lg {
+        font-size: 1.2rem;
+        padding: 0.75rem;
+    }
+</style>

@@ -1,0 +1,139 @@
+@model MakingOrderViewModel
+
+@{
+    ViewData["Title"] = "Order the goods";
+}
+
+<!-- Display Success or Error Message -->
+@if (TempData["ErrorMessage"] != null)
+{
+<div class="alert alert-danger">
+    @TempData["ErrorMessage"]
+</div>
+}
+@if (TempData["SuccessMessage"] != null)
+{
+<div class="alert alert-success">
+    @TempData["SuccessMessage"]
+</div>
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Сделать заказ товаров</h2>
+
+    <form asp-action="OrderGoods" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <input type="hidden" asp-for="goodsId"/>
+
+        <div class="form-group row mb-4 align-items-center">
+            <!-- Quantity Input -->
+            <label for="quantity" class="col-sm-3 col-form-label fw-bold">
+                Количество юнитов для доставки:
+            </label>
+            <div class="col-sm-5">
+                <div class="input-group">
+                    <input
+                        type="number"
+                        id="quantity"
+                        asp-for="quantity"
+                        name="quantity"
+                        class="form-control border-primary"
+                        placeholder="Введите количество (например: 100)"
+                        min="1" />
+                    <span class="input-group-text bg-primary text-white">шт</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row mb-4 align-items-center">
+            <!-- Delivery Date Input -->
+            <label for="deliveryDate" class="col-sm-3 col-form-label fw-bold">
+                Дата доставки:
+            </label>
+            <div class="col-sm-5">
+                <div class="input-group">
+                    <input
+                        type="text"
+                        id="deliveryDate"
+                        asp-for="deliveryDate"
+                        name="deliveryDate"
+                        readonly
+                        class="form-control border-primary"
+                        placeholder="Выберите дату" />
+                    <span class="input-group-text bg-primary text-white">
+                <i class="bi bi-calendar-event"></i>
+            </span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-lg fc-button-primary">Заказать</button>
+        </div>
+    </form>
+
+    <div id="calendar" class="mt-5"></div>
+</div>
+
+<style>
+    .fc-event {
+        background-color: #ff9f89 !important;
+    }
+
+    #calendar {
+        margin-top: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+    }
+
+    .fc-button-primary {
+        background-color: #6399d5;
+        border-color: #6399d5;
+        color: white;
+    }
+
+    .fc-button-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+        color: white;
+    }
+</style>
+
+@section Scripts {
+    <script src="~/lib/fullcalendar/dist/index.global.min.js"></script>
+    <script src="~/lib/fullcalendar/packages/core/locales/ru.global.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const today = new Date();
+            today.setDate(today.getDate() + 7);
+
+            const calendarEl = document.getElementById('calendar');
+
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'ru',
+                selectable: true,
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,dayGridWeek'
+                },
+                select: function (info) {
+                    document.getElementById("deliveryDate").value = info.startStr;
+                },
+                selectAllow: function (selectInfo) {
+                    const selectedStart = new Date(selectInfo.start);
+
+                    // Disallow selection in the past
+                    return selectedStart > today;
+                    
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
+}
